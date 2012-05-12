@@ -21,6 +21,12 @@ public class EventListener implements Listener {
 	protected static int costXP = 25;
 	protected static Random rand;
 	
+	private int getTotalExp(int levels, float exp) {
+		float result = (float) (1.75*Math.pow(levels,2));
+		result += getNextXpJump(levels)*exp;
+		return (int)Math.round(result);
+	}
+	
 	private float getNextXpJump(int level) {
 		return (float)(3.5*level) + (float)(6.7);
 	}
@@ -36,17 +42,16 @@ public class EventListener implements Listener {
 	
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onPlayerInteractEvent(PlayerInteractEvent e) {
-		
 		if (!e.isCancelled() && e.getMaterial() == Material.GLASS_BOTTLE && e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE && e != null) {
 			Player p = e.getPlayer();
 			Integer initialAmount = p.getItemInHand().getAmount();
 			Integer amount = initialAmount;
-			Integer totalXP = p.getTotalExperience();
+			Integer totalXP = getTotalExp(p.getLevel(),p.getExp());
 			Integer totalCost = amount*costXP;
 			PlayerInventory inventory = p.getInventory();
 			Integer newTotalXP;
 			
-			if (costXP > 0) {
+			if (costXP > 0 && amount > 0 && amount < 64) { //sanity checking
 				if (totalXP < totalCost) {
 					if (totalXP >= costXP) {
 						totalCost = totalXP;
@@ -74,16 +79,24 @@ public class EventListener implements Listener {
 					p.setLevel(0);
 					p.setExp(0);
 					p.giveExp(newTotalXP);
-					HashMap<Integer, ItemStack> hash = inventory.addItem(new ItemStack(Material.EXP_BOTTLE, amount));
-					if (!hash.isEmpty()) {
-						Iterator<Integer> it = hash.keySet().iterator();
-						if (it.hasNext()) {
-							p.setItemInHand(hash.get(it.next()));
+					Integer finalXP = getTotalExp(p.getLevel(),p.getExp());
+					if (finalXP == totalXP + totalCost) { //sanity checking
+						HashMap<Integer, ItemStack> hash = inventory.addItem(new ItemStack(Material.EXP_BOTTLE, amount));
+						if (!hash.isEmpty()) {
+							Iterator<Integer> it = hash.keySet().iterator();
+							if (it.hasNext()) {
+								p.setItemInHand(hash.get(it.next()));
+							}
 						}
+					} else { // this should never happen
+						p.setTotalExperience(0);
+						p.setLevel(0);
+						p.setExp(0);
+						bottleO.log.info("bottleO: panic! "+totalXP.toString()+", "+finalXP.toString()+", "+totalCost.toString());
 					}
-					
 				}
 			}
+			e.setCancelled(true);
 		}
 	}
 }
