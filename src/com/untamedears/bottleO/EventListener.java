@@ -25,19 +25,19 @@ public class EventListener implements Listener {
 		return (float)(3.5*level) + (float)(6.7);
 	}
 	
-	@EventHandler(priority=EventPriority.NORMAL)
+	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onExpBottleEvent(ExpBottleEvent e) {
 		int xp = minXP;
-		if (maxXP > minXP) {
-			xp += rand.nextInt(maxXP-minXP);
-		}
+		//if (maxXP > minXP) {
+		//	xp += rand.nextInt(maxXP-minXP);
+		//}
 		e.setExperience(xp);
 	}
 	
-	@EventHandler(priority=EventPriority.NORMAL)
+	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onPlayerInteractEvent(PlayerInteractEvent e) {
 		
-		if (e.getMaterial() == Material.GLASS_BOTTLE && e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE) {
+		if (!e.isCancelled() && e.getMaterial() == Material.GLASS_BOTTLE && e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE && e != null) {
 			Player p = e.getPlayer();
 			Integer initialAmount = p.getItemInHand().getAmount();
 			Integer amount = initialAmount;
