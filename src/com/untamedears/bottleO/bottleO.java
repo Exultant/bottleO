@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class bottleO extends JavaPlugin {
     public static Logger log;
     public EventListener listener;
+    public static String pluginName = "bottleO";
     
 	public void onEnable() {
 		log = this.getLogger();
