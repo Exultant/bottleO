@@ -15,10 +15,10 @@ public class bottleO extends JavaPlugin {
 		
 		listener = new EventListener();
 		Bukkit.getPluginManager().registerEvents(listener, this);
-		log.info("bottleO enabled!");
+		log.info(pluginName+" enabled!");
 	}
 	
 	public void onDisable() {
-		log.info("bottleO disabled!");
+		log.info(pluginName+" disabled!");
 	}
 }
