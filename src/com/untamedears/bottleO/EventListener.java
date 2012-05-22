@@ -5,10 +5,9 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
+//import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -74,9 +73,16 @@ public class EventListener implements Listener {
 			
 			//sanity checking
 			if (totalXP != otherTotalXP || totalXP < 0) {
-				p.sendMessage(ChatColor.RED+"["+bottleO.pluginName+"]"+ChatColor.WHITE+" an error has occured: invalid xp values.");
-				bottleO.log.info("invalid xp values! "+p.getName()+", calculated xp:"+totalXP+", reported xp:"+otherTotalXP);
-				return;
+				String infoMessage = "invalid xp values for "+p.getName()+", calculated xp:"+totalXP+", reported xp:"+otherTotalXP+", level:"+p.getLevel()+", progress:"+p.getExp()+", ";
+				if (totalXP < otherTotalXP) {
+					bottleO.log.info(infoMessage+"calculated xp lower, ignoring reported xp.");
+				} else if (totalXP > otherTotalXP){
+					bottleO.log.info(infoMessage+"reported xp lower, stopping.");
+					return;
+				} else {
+					bottleO.log.info(infoMessage+"impossible xp value, stopping.");
+					return;
+				}
 			}
 			
 			int totalCost = amount*xpPerBottle;
