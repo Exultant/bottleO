@@ -7,11 +7,11 @@ import java.util.Random;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-//import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ExpBottleEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ItemStack;
@@ -21,23 +21,86 @@ import org.bukkit.potion.PotionEffectType;
 
 public class EventListener implements Listener {
 	
+	/*
+	 * TODO:
+	 * Change xp growth rate
+	 * modify the amount of xp set after bottling
+	 * implement old available enchants
+	 * raise level cap back to 50
+	 * disable mining and smelting xp sources
+	 * ---
+	 * add emeralds as dense storage for xp
+	 * add additional enchants beyond old system
+	 */
+	
 	protected static int xpPerBottle = 25;
-	protected static long waitTime = 30000;
+	protected static long waitTime = 10000;
 	protected static Random rand;
 	//cool-down timers
 	protected static HashMap<String,Long> playerWaitHash = new HashMap<String,Long>(100);
 	
-	//calculate total xp
-	private int getTotalXP(int levels, float exp) {
+	//calculate legacy total xp
+	private int getLegacyTotalXP(int levels, float exp) {
 		float result = (float) ((1.75*levels*levels) + (5*levels));
 		result = Math.round(result);
-		float remainder = Math.round(Math.round(getNextXpJump(levels))*exp);
+		float remainder = Math.round(Math.round(getLegacyNextXpJump(levels))*exp);
 		return (int)(remainder+result);
 	}
 	
-	//calculate xp required to get to next level
-	private float getNextXpJump(int level) {
+	//calculate legacy xp required to get to next level
+	private float getLegacyNextXpJump(int level) {
 		return (float)(3.5*level) + (float)(6.7);
+	}
+	
+	//calculate new total xp
+	private int getNewTotalXP(int levels, float exp) {
+		if (levels > 16) {
+			int a1 = 20;
+			int n = levels-16;
+			int an = 17 + (n)*3;
+			int d = 3;
+			Float progression = (float)(n*(a1 + an)/2);
+			Float remainder = (exp*getNewNextXpJump(levels));
+			return (int)(272 + progression + remainder);
+		} else if (levels >= 0) {
+			return (int)((17*levels) + exp*getNewNextXpJump(levels));
+		} else {
+			return 0;
+		}
+	}
+	
+	//calculate new xp required to get to next level
+	private float getNewNextXpJump(int levels) {
+		if (levels < 17) {
+			return 17;
+		} else if (levels >= 17){
+			return 17 + (float)((levels-16)*3);
+		} else {
+			return 0;
+		}
+	}
+	
+	//calculate legacy level from xp
+	private int getLegacyLevel(int totalXP) {
+		if (totalXP > 0) {
+			int level = 1;
+			int xpGuess = getLegacyTotalXP(level,0);
+			while (xpGuess < totalXP) {
+				level++;
+				xpGuess = getLegacyTotalXP(level,0);
+			}
+			return level-1;
+		}
+		return 0;
+	}
+	
+	//calculate legacy exp from level and totalXP
+	private float getLegacyExp(int level, int totalXP) {
+		int levelXP = Math.round(getLegacyTotalXP(level,0));
+		int remainder = totalXP-levelXP;
+		float required = Math.round(getLegacyNextXpJump(level));
+		float exp = (remainder/required);
+		return exp;
 	}
 	
 	//change xp yield from bottle
@@ -45,6 +108,24 @@ public class EventListener implements Listener {
 	public void onExpBottleEvent(ExpBottleEvent e) {
 		e.setExperience(xpPerBottle);
 	}
+	
+	//modify xp growth rate
+	@EventHandler(priority=EventPriority.HIGHEST)
+	public void onPlayerExpChangeEvent(PlayerExpChangeEvent e) {
+		Player p  = e.getPlayer();
+		int levels = p.getLevel();
+		int amount = e.getAmount();
+		float exp = p.getExp();
+		Integer legacyTotalXp = getLegacyTotalXP(levels,exp) + amount;
+		Integer legacyLevel = getLegacyLevel(legacyTotalXp);
+		Float legacyExp = getLegacyExp(legacyLevel, legacyTotalXp);
+		
+		e.setAmount(0);
+		p.setTotalExperience(0);
+		p.setLevel(legacyLevel);
+		p.setExp(legacyExp);
+	}
+	
 	
 	//generate xp bottles
 	@EventHandler(priority=EventPriority.HIGHEST)
@@ -68,7 +149,7 @@ public class EventListener implements Listener {
 			
 			int initialAmount = p.getItemInHand().getAmount();
 			int amount = initialAmount;
-			int totalXP = getTotalXP(p.getLevel(),p.getExp());
+			int totalXP = getLegacyTotalXP(p.getLevel(),p.getExp());
 			int otherTotalXP = p.getTotalExperience();
 			
 			//sanity checking
@@ -113,7 +194,7 @@ public class EventListener implements Listener {
 					p.setLevel(0);
 					p.setExp(0);
 					p.giveExp(newTotalXP);
-					int finalXP = getTotalXP(p.getLevel(),p.getExp());
+					int finalXP = getLegacyTotalXP(p.getLevel(),p.getExp());
 					
 					//sanity checking
 					if (finalXP == newTotalXP && finalXP == (totalXP - totalCost)) {
