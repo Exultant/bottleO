@@ -28,21 +28,23 @@ public class bottleO extends JavaPlugin {
     public static Logger log;
     public EventListener listener;
     public static String pluginName = "bottleO";
-    public static String version = "0.6";
+    public static String version = "0.7";
     
 	public void onEnable() {
 		log = this.getLogger();
 		
 		listener = new EventListener();
 		Bukkit.getPluginManager().registerEvents(listener, this);
-		ShapelessRecipe recipe1 = new ShapelessRecipe(new ItemStack(Material.EMERALD,1));
+		
+		//add recipes
+		ShapelessRecipe expToEmeraldRecipe = new ShapelessRecipe(new ItemStack(Material.EMERALD,1));
 		for (int i = 0; i < 9; i++) {
-			recipe1.addIngredient(Material.EXP_BOTTLE);
+			expToEmeraldRecipe.addIngredient(Material.EXP_BOTTLE);
 		}
-		Bukkit.addRecipe(recipe1);
-		ShapelessRecipe recipe2 = new ShapelessRecipe(new ItemStack(Material.EXP_BOTTLE,9));
-		recipe2.addIngredient(Material.EMERALD);
-		Bukkit.addRecipe(recipe2);
+		Bukkit.addRecipe(expToEmeraldRecipe);
+		ShapelessRecipe emeraldToExpRecipe = new ShapelessRecipe(new ItemStack(Material.EXP_BOTTLE,9));
+		emeraldToExpRecipe.addIngredient(Material.EMERALD);
+		Bukkit.addRecipe(emeraldToExpRecipe);
 		
 		log.info(pluginName+" v"+version+" enabled!");
 	}
