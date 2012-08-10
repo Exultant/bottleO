@@ -3,13 +3,15 @@ package com.untamedears.bottleO;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
-
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.entity.ExpBottleEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -226,4 +228,34 @@ public class EventListener implements Listener {
 		Player p = e.getPlayer();
 		playerWaitHash.put(p.getName(), System.currentTimeMillis());
 	}
+	
+	
+
+	@EventHandler(priority=EventPriority.HIGHEST)
+	public void onPrepareItemEnchant(PrepareItemEnchantEvent e) {
+		
+		int[] levels = e.getExpLevelCostsOffered();
+		
+		Random rnd = new Random();
+		
+		levels[0] = (rnd.nextInt(5) + 2 + (e.getEnchantmentBonus() / 2) + rnd.nextInt(e.getEnchantmentBonus())) / 2;
+		levels[1] = (rnd.nextInt(5) + 2 + (e.getEnchantmentBonus() / 2) + rnd.nextInt(e.getEnchantmentBonus())) * 2 / 3;
+		levels[2] = (rnd.nextInt(5) + 2 + (e.getEnchantmentBonus() / 2) + rnd.nextInt(e.getEnchantmentBonus()));
+	}
+	
+	@EventHandler(priority=EventPriority.HIGHEST)
+	public void onEnchantItem(EnchantItemEvent e) {
+		 
+		Enchantments enchantments = new Enchantments(e.getExpLevelCost(), e.getItem().getType());
+		
+		if (enchantments.getCount() <= 0) {
+			e.setCancelled(true);
+			return;
+		}
+		
+		enchantments.applyEnchantments(e.getEnchantsToAdd());
+	}
+	
+	
+	
 }
