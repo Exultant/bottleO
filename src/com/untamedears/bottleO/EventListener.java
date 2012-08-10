@@ -150,20 +150,11 @@ public class EventListener implements Listener {
 			int initialAmount = p.getItemInHand().getAmount();
 			int amount = initialAmount;
 			int totalXP = getLegacyTotalXP(p.getLevel(),p.getExp());
-			int otherTotalXP = p.getTotalExperience();
 			
-			//sanity checking
-			if (totalXP != otherTotalXP || totalXP < 0) {
-				String infoMessage = "invalid xp values for "+p.getName()+", calculated xp:"+totalXP+", reported xp:"+otherTotalXP+", level:"+p.getLevel()+", progress:"+p.getExp()+", ";
-				if (totalXP < otherTotalXP) {
-					bottleO.log.info(infoMessage+"calculated xp lower, ignoring reported xp.");
-				} else if (totalXP > otherTotalXP){
-					bottleO.log.info(infoMessage+"reported xp lower, stopping.");
-					return;
-				} else {
-					bottleO.log.info(infoMessage+"impossible xp value, stopping.");
-					return;
-				}
+			if (totalXP < 0) {
+				String infoMessage = "invalid xp values for "+p.getName()+", calculated xp:"+totalXP+", level:"+p.getLevel()+", progress:"+p.getExp()+", ";
+				bottleO.log.info(infoMessage+"impossible xp value, stopping.");
+				return;
 			}
 			
 			int totalCost = amount*xpPerBottle;
@@ -190,21 +181,24 @@ public class EventListener implements Listener {
 					
 					//set the new xp value and check it is correct
 					newTotalXP = totalXP-totalCost;
+					int legacyLevel = getLegacyLevel(newTotalXP);
 					p.setTotalExperience(0);
-					p.setLevel(0);
-					p.setExp(0);
-					p.giveExp(newTotalXP);
+					p.setLevel(legacyLevel);
+					p.setExp(getLegacyExp(legacyLevel, newTotalXP));
+					//p.giveExp(newTotalXP);
 					int finalXP = getLegacyTotalXP(p.getLevel(),p.getExp());
 					
 					//sanity checking
 					if (finalXP == newTotalXP && finalXP == (totalXP - totalCost)) {
 						//try to put xp bottles in inventory
 						HashMap<Integer, ItemStack> hash = inventory.addItem(new ItemStack(Material.EXP_BOTTLE, amount));
-						//otherwise replace glass bottles in hand
+						//otherwise replace glass bottles in hand and drop glass bottles
 						if (!hash.isEmpty()) {
 							Iterator<Integer> it = hash.keySet().iterator();
 							if (it.hasNext()) {
+								ItemStack glassStack = p.getItemInHand().clone();
 								p.setItemInHand(hash.get(it.next()));
+								p.getWorld().dropItem(p.getLocation(), glassStack);
 							}
 						}
 						//restart cool-down timer
