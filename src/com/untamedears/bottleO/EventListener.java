@@ -22,9 +22,10 @@ import org.bukkit.potion.PotionEffectType;
 public class EventListener implements Listener {
 	
 	/*
-	 * TODO:
+	 * DONE:
 	 * Change xp growth rate
 	 * modify the amount of xp set after bottling
+	 * TODO:
 	 * implement old available enchants
 	 * raise level cap back to 50
 	 * disable mining and smelting xp sources
