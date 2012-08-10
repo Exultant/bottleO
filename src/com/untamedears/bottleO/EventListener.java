@@ -3,7 +3,6 @@ package com.untamedears.bottleO;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 public class EventListener implements Listener {
 	
 	protected static int xpPerBottle = 25;
-	protected static long waitTime = 10000;
+	protected static long waitTime = 5000;
 	protected static Random rand;
 	//cool-down timers
 	protected static HashMap<String,Long> playerWaitHash = new HashMap<String,Long>(100);
@@ -48,7 +47,6 @@ public class EventListener implements Listener {
 			int a1 = 20;
 			int n = levels-16;
 			int an = 17 + (n)*3;
-			int d = 3;
 			Float progression = (float)(n*(a1 + an)/2);
 			Float remainder = (exp*getNewNextXpJump(levels));
 			return (int)(272 + progression + remainder);
