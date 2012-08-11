@@ -222,10 +222,24 @@ public class EventListener implements Listener {
 		int[] levels = e.getExpLevelCostsOffered();
 		
 		Random rnd = new Random();
+		int bonus = e.getEnchantmentBonus();
 		
-		levels[0] = (rnd.nextInt(5) + 2 + (e.getEnchantmentBonus() / 2) + rnd.nextInt(e.getEnchantmentBonus())) / 2;
-		levels[1] = (rnd.nextInt(5) + 2 + (e.getEnchantmentBonus() / 2) + rnd.nextInt(e.getEnchantmentBonus())) * 2 / 3;
-		levels[2] = (rnd.nextInt(5) + 2 + (e.getEnchantmentBonus() / 2) + rnd.nextInt(e.getEnchantmentBonus()));
+		if (bonus <= 0) {
+			levels[0] = rnd.nextInt(5) / 2;
+			levels[1] = rnd.nextInt(5) * 2 / 3;
+			levels[2] = rnd.nextInt(5);
+		}
+		else {
+			levels[0] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus)) / 2;
+			levels[1] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus)) * 2 / 3;
+			levels[2] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus));
+		}
+		
+		for (int i = 0; i < 3; i++) {
+			if (levels[i] < 1) {
+				levels[i] = 1;
+			}
+		}
 	}
 	
 	@EventHandler(priority=EventPriority.HIGHEST)
