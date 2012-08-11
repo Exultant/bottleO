@@ -497,9 +497,9 @@ public class Enchantments {
 	public void applyEnchantments(Map<Enchantment, Integer> enchantsToAdd) {
 		enchantsToAdd.clear();
 		
-		Iterator<?> iter = this.enchantments.entrySet().iterator();
+		Iterator<Entry<Enchantment,Integer>> iter = this.enchantments.entrySet().iterator();
 	    while (iter.hasNext()) {
-	        Entry<Enchantment, Integer> pairs = (Entry<Enchantment, Integer>)iter.next();
+	        Entry<Enchantment, Integer> pairs = iter.next();
 	        enchantsToAdd.put(pairs.getKey(), pairs.getValue());
 	    }
 	}

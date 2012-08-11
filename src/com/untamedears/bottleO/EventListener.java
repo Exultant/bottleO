@@ -41,37 +41,6 @@ public class EventListener implements Listener {
 		return (float)(3.5*level) + (float)(6.7);
 	}
 	
-	/*
-	//calculate new total xp
-	private int getNewTotalXP(int levels, float exp) {
-		if (levels > 16) {
-			int a1 = 20;
-			int n = levels-16;
-			int an = 17 + (n)*3;
-			Float progression = (float)(n*(a1 + an)/2);
-			Float remainder = (exp*getNewNextXpJump(levels));
-			return (int)(272 + progression + remainder);
-		} else if (levels >= 0) {
-			return (int)((17*levels) + exp*getNewNextXpJump(levels));
-		} else {
-			return 0;
-		}
-	}
-	*/
-	
-	/*
-	//calculate new xp required to get to next level
-	private float getNewNextXpJump(int levels) {
-		if (levels < 17) {
-			return 17;
-		} else if (levels >= 17){
-			return 17 + (float)((levels-16)*3);
-		} else {
-			return 0;
-		}
-	}
-	*/
-	
 	//calculate legacy level from xp
 	private int getLegacyLevel(int totalXP) {
 		if (totalXP > 0) {
@@ -223,7 +192,8 @@ public class EventListener implements Listener {
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onPrepareItemEnchant(PrepareItemEnchantEvent e) {
 		
-		int[] levels = e.getExpLevelCostsOffered();
+		int[] levels = {0,0,0};
+		//levels = e.getExpLevelCostsOffered();
 		
 		Random rnd = new Random();
 		int bonus = e.getEnchantmentBonus();
@@ -234,6 +204,7 @@ public class EventListener implements Listener {
 			levels[2] = rnd.nextInt(5);
 		}
 		else {
+			if (bonus < 1) { bonus = 1; }
 			levels[0] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus)) / 2;
 			levels[1] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus)) * 2 / 3;
 			levels[2] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus));
