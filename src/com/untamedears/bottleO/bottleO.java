@@ -17,18 +17,18 @@ public class bottleO extends JavaPlugin {
 	 * modify the amount of xp set after bottling
 	 * implement old available enchants
 	 * raise level cap back to 50
+	 * add emeralds as dense storage for xp
+	 * add additional enchants beyond old system
 	 * TODO:
 	 * disable mining and smelting xp sources
 	 * TEST EVERYTHING
 	 * ---
-	 * add emeralds as dense storage for xp
-	 * add additional enchants beyond old system
 	 */
 	
     public static Logger log;
     public EventListener listener;
     public static String pluginName = "bottleO";
-    public static String version = "0.7";
+    public static String version = "0.7.1";
     
 	public void onEnable() {
 		log = this.getLogger();
