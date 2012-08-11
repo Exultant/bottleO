@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.entity.ExpBottleEvent;
@@ -42,6 +41,7 @@ public class EventListener implements Listener {
 		return (float)(3.5*level) + (float)(6.7);
 	}
 	
+	/*
 	//calculate new total xp
 	private int getNewTotalXP(int levels, float exp) {
 		if (levels > 16) {
@@ -57,7 +57,9 @@ public class EventListener implements Listener {
 			return 0;
 		}
 	}
+	*/
 	
+	/*
 	//calculate new xp required to get to next level
 	private float getNewNextXpJump(int levels) {
 		if (levels < 17) {
@@ -68,6 +70,7 @@ public class EventListener implements Listener {
 			return 0;
 		}
 	}
+	*/
 	
 	//calculate legacy level from xp
 	private int getLegacyLevel(int totalXP) {
