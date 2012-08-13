@@ -192,8 +192,7 @@ public class EventListener implements Listener {
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onPrepareItemEnchant(PrepareItemEnchantEvent e) {
 		
-		int[] levels = {0,0,0};
-		//levels = e.getExpLevelCostsOffered();
+		int[] levels = e.getExpLevelCostsOffered();
 		
 		Random rnd = new Random();
 		int bonus = e.getEnchantmentBonus();

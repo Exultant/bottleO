@@ -104,8 +104,15 @@ public class Enchantments {
 		}
 		
 		Random rnd = new Random();
-		int modified_level = (int)((float)(level + rnd.nextInt(enchantability) + 1) * (0.75f + (rnd.nextFloat() / 2.0f)));
-
+		
+		int half_enchant = enchantability / 2;
+		int j2 = 1 + rnd.nextInt((half_enchant / 2) + 1) + rnd.nextInt((half_enchant / 2) + 1);
+		int k = j2 + level;
+		
+		float f = (rnd.nextFloat() + rnd.nextFloat() - 1) * 0.25f;
+		int modified_level = (int)((float)k * (1.0f + f) + 0.5f);
+		
+		
 		switch (material) {
 		case LEATHER:
 		case LEATHER_BOOTS:
@@ -130,100 +137,83 @@ public class Enchantments {
 		case GOLD_LEGGINGS:
 			for (int i = 0; i < 10; i++) {
 				
-				if (modified_level >= 1 && modified_level <= 21) {
-					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
-				}
-				
-				if (modified_level >= 17 && modified_level <= 37) {
-					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
-				}
-				
-				if (modified_level >= 33 && modified_level <= 53) {
-					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
-				}
-				
 				if (modified_level >= 49 && modified_level <= 69) {
 					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+				}
+				else if (modified_level >= 33 && modified_level <= 53) {
+					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
+				}
+				else if (modified_level >= 17 && modified_level <= 37) {
+					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+				}
+				else if (modified_level >= 1 && modified_level <= 21) {
+					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
 				}
 			}
 			
 			for (int i = 0; i < 5; i++) {
-				if (modified_level >= 10 && modified_level <= 22) {
-					this.add(Enchantment.PROTECTION_FIRE, 1);
-				}
-	
-				if (modified_level >= 18 && modified_level <= 30) {
-					this.add(Enchantment.PROTECTION_FIRE, 2);
-				}
-	
-				if (modified_level >= 26 && modified_level <= 38) {
-					this.add(Enchantment.PROTECTION_FIRE, 3);
-				}
-	
 				if (modified_level >= 34 && modified_level <= 46) {
 					this.add(Enchantment.PROTECTION_FIRE, 4);
 				}
-	
-				if (modified_level >= 5 && modified_level <= 15) {
-					this.add(Enchantment.PROTECTION_FALL, 1);
+				else if (modified_level >= 26 && modified_level <= 38) {
+					this.add(Enchantment.PROTECTION_FIRE, 3);
 				}
-	
-				if (modified_level >= 11 && modified_level <= 21) {
-					this.add(Enchantment.PROTECTION_FALL, 2);
+				else if (modified_level >= 18 && modified_level <= 30) {
+					this.add(Enchantment.PROTECTION_FIRE, 2);
+				}
+				else if (modified_level >= 10 && modified_level <= 22) {
+					this.add(Enchantment.PROTECTION_FIRE, 1);
 				}
 				
-				if (modified_level >= 17 && modified_level <= 27) {
-					this.add(Enchantment.PROTECTION_FALL, 3);
-				}
-	
 				if (modified_level >= 23 && modified_level <= 33) {
 					this.add(Enchantment.PROTECTION_FALL, 4);
 				}
-				
-				if (modified_level >= 3 && modified_level <= 18) {
-					this.add(Enchantment.PROTECTION_PROJECTILE, 1);
+				else if (modified_level >= 17 && modified_level <= 27) {
+					this.add(Enchantment.PROTECTION_FALL, 3);
 				}
-				
-				if (modified_level >= 9 && modified_level <= 24) {
-					this.add(Enchantment.PROTECTION_PROJECTILE, 2);
+				else if (modified_level >= 11 && modified_level <= 21) {
+					this.add(Enchantment.PROTECTION_FALL, 2);
 				}
-				
-				if (modified_level >= 15 && modified_level <= 30) {
-					this.add(Enchantment.PROTECTION_PROJECTILE, 3);
+				else if (modified_level >= 5 && modified_level <= 15) {
+					this.add(Enchantment.PROTECTION_FALL, 1);
 				}
 				
 				if (modified_level >= 21 && modified_level <= 36) {
 					this.add(Enchantment.PROTECTION_PROJECTILE, 4);
 				}
+				else if (modified_level >= 15 && modified_level <= 30) {
+					this.add(Enchantment.PROTECTION_PROJECTILE, 3);
+				}
+				else if (modified_level >= 9 && modified_level <= 24) {
+					this.add(Enchantment.PROTECTION_PROJECTILE, 2);
+				}
+				else if (modified_level >= 3 && modified_level <= 18) {
+					this.add(Enchantment.PROTECTION_PROJECTILE, 1);
+				}
 			}
 
 			for (int i = 0; i < 2; i++) {
-				if (modified_level >= 5 && modified_level <= 17) {
-					this.add(Enchantment.PROTECTION_EXPLOSIONS, 1);
-				}
-				
-				if (modified_level >= 13 && modified_level <= 25) {
-					this.add(Enchantment.PROTECTION_EXPLOSIONS, 2);
-				}
-				
-				if (modified_level >= 21 && modified_level <= 33) {
-					this.add(Enchantment.PROTECTION_EXPLOSIONS, 3);
-				}
-	
 				if (modified_level >= 29 && modified_level <= 41) {
 					this.add(Enchantment.PROTECTION_EXPLOSIONS, 4);
 				}
-						
-				if (modified_level >= 10 && modified_level <= 40) {
-					this.add(Enchantment.OXYGEN, 1);
+				else if (modified_level >= 21 && modified_level <= 33) {
+					this.add(Enchantment.PROTECTION_EXPLOSIONS, 3);
 				}
-	
-				if (modified_level >= 20 && modified_level <= 50) {
-					this.add(Enchantment.OXYGEN, 2);
+				else if (modified_level >= 13 && modified_level <= 25) {
+					this.add(Enchantment.PROTECTION_EXPLOSIONS, 2);
+				}
+				else if (modified_level >= 5 && modified_level <= 17) {
+					this.add(Enchantment.PROTECTION_EXPLOSIONS, 1);
 				}
 				
 				if (modified_level >= 30 && modified_level <= 60) {
 					this.add(Enchantment.OXYGEN, 3);
+				}
+				else if (modified_level >= 20 && modified_level <= 50) {
+					this.add(Enchantment.OXYGEN, 2);
+				}
+				else if (modified_level >= 10 && modified_level <= 40) {
+					this.add(Enchantment.OXYGEN, 1);
 				}
 	
 				if (modified_level >= 1 && modified_level <= 41) {
@@ -240,96 +230,80 @@ public class Enchantments {
 		case GOLD_SWORD:
 			
 			for (int i = 0; i < 10; i++) {
-				if (modified_level >= 1 && modified_level <= 21) {
-					this.add(Enchantment.DAMAGE_ALL, 1);
-				}
-				
-				if (modified_level >= 17 && modified_level <= 37) {
-					this.add(Enchantment.DAMAGE_ALL, 2);
-				}
-				
-				if (modified_level >= 33 && modified_level <= 53) {
-					this.add(Enchantment.DAMAGE_ALL, 3);
-				}
-				
-				if (modified_level >= 49 && modified_level <= 69) {
-					this.add(Enchantment.DAMAGE_ALL, 4);
-				}
-	
 				if (modified_level >= 65 && modified_level <= 85) {
 					this.add(Enchantment.DAMAGE_ALL, 5);
+				}
+				else if (modified_level >= 49 && modified_level <= 69) {
+					this.add(Enchantment.DAMAGE_ALL, 4);
+				}
+				else if (modified_level >= 33 && modified_level <= 53) {
+					this.add(Enchantment.DAMAGE_ALL, 3);
+				}
+				else if (modified_level >= 17 && modified_level <= 37) {
+					this.add(Enchantment.DAMAGE_ALL, 2);
+				}
+				else if (modified_level >= 1 && modified_level <= 21) {
+					this.add(Enchantment.DAMAGE_ALL, 1);
 				}
 			}
 
 			for (int i = 0; i < 5; i++) {
-				if (modified_level >= 5 && modified_level <= 25) {
-					this.add(Enchantment.DAMAGE_UNDEAD, 1);
-				}
-				
-				if (modified_level >= 13 && modified_level <= 33) {
-					this.add(Enchantment.DAMAGE_UNDEAD, 2);
-				}
-				
-				if (modified_level >= 21 && modified_level <= 41) {
-					this.add(Enchantment.DAMAGE_UNDEAD, 3);
-				}
-				
-				if (modified_level >= 29 && modified_level <= 49) {
-					this.add(Enchantment.DAMAGE_UNDEAD, 4);
-				}
-	
 				if (modified_level >= 37 && modified_level <= 57) {
 					this.add(Enchantment.DAMAGE_UNDEAD, 5);
 				}
-	
-				if (modified_level >= 5 && modified_level <= 25) {
-					this.add(Enchantment.DAMAGE_ARTHROPODS, 1);
+				else if (modified_level >= 29 && modified_level <= 49) {
+					this.add(Enchantment.DAMAGE_UNDEAD, 4);
+				}
+				else if (modified_level >= 21 && modified_level <= 41) {
+					this.add(Enchantment.DAMAGE_UNDEAD, 3);
+				}
+				else if (modified_level >= 13 && modified_level <= 33) {
+					this.add(Enchantment.DAMAGE_UNDEAD, 2);
+				}
+				else if (modified_level >= 5 && modified_level <= 25) {
+					this.add(Enchantment.DAMAGE_UNDEAD, 1);
 				}
 				
-				if (modified_level >= 13 && modified_level <= 33) {
-					this.add(Enchantment.DAMAGE_ARTHROPODS, 2);
-				}
-				
-				if (modified_level >= 21 && modified_level <= 41) {
-					this.add(Enchantment.DAMAGE_ARTHROPODS, 3);
-				}
-				
-				if (modified_level >= 29 && modified_level <= 49) {
-					this.add(Enchantment.DAMAGE_ARTHROPODS, 4);
-				}
-	
 				if (modified_level >= 37 && modified_level <= 57) {
 					this.add(Enchantment.DAMAGE_ARTHROPODS, 5);
 				}
-	
-				if (modified_level >= 5 && modified_level <= 55) {
-					this.add(Enchantment.KNOCKBACK, 1);
+				else if (modified_level >= 29 && modified_level <= 49) {
+					this.add(Enchantment.DAMAGE_ARTHROPODS, 4);
+				}
+				else if (modified_level >= 21 && modified_level <= 41) {
+					this.add(Enchantment.DAMAGE_ARTHROPODS, 3);
+				}
+				else if (modified_level >= 13 && modified_level <= 33) {
+					this.add(Enchantment.DAMAGE_ARTHROPODS, 2);
+				}
+				else if (modified_level >= 5 && modified_level <= 25) {
+					this.add(Enchantment.DAMAGE_ARTHROPODS, 1);
 				}
 				
 				if (modified_level >= 25 && modified_level <= 75) {
 					this.add(Enchantment.KNOCKBACK, 2);
 				}
+				else if (modified_level >= 5 && modified_level <= 55) {
+					this.add(Enchantment.KNOCKBACK, 1);
+				}
 			}
 
 			for (int i = 0; i < 2; i++) {
-				if (modified_level >= 10 && modified_level <= 60) {
-					this.add(Enchantment.FIRE_ASPECT, 1);
-				}
-				
 				if (modified_level >= 30 && modified_level <= 80) {
 					this.add(Enchantment.FIRE_ASPECT, 2);
 				}
-				
-				if (modified_level >= 20 && modified_level <= 70) {
-					this.add(Enchantment.LOOT_BONUS_MOBS, 1);
-				}
-				
-				if (modified_level >= 32 && modified_level <= 82) {
-					this.add(Enchantment.LOOT_BONUS_MOBS, 2);
+				else if (modified_level >= 10 && modified_level <= 60) {
+					this.add(Enchantment.FIRE_ASPECT, 1);
 				}
 				
 				if (modified_level >= 44 && modified_level <= 94) {
 					this.add(Enchantment.LOOT_BONUS_MOBS, 3);
+				}
+				else if (modified_level >= 32 && modified_level <= 82) {
+					this.add(Enchantment.LOOT_BONUS_MOBS, 2);
+				}
+				else if (modified_level >= 20 && modified_level <= 70) {
+					this.add(Enchantment.LOOT_BONUS_MOBS, 1);
 				}
 			}
 			break;
@@ -337,36 +311,31 @@ public class Enchantments {
 		case BOW:
 			
 			for (int i = 0; i < 10; i++) {
-				if (modified_level >= 1 && modified_level <= 16) {
-					this.add(Enchantment.ARROW_DAMAGE, 1);
-				}
-				
-				if (modified_level >= 11 && modified_level <= 26) {
-					this.add(Enchantment.ARROW_DAMAGE, 2);
-				}
-				
-				if (modified_level >= 21 && modified_level <= 36) {
-					this.add(Enchantment.ARROW_DAMAGE, 3);
-				}
-				
-				if (modified_level >= 41 && modified_level <= 46) {
-					this.add(Enchantment.ARROW_DAMAGE, 4);
-				}
-				
 				if (modified_level >= 51 && modified_level <= 56) {
 					this.add(Enchantment.ARROW_DAMAGE, 5);
+				}
+				else if (modified_level >= 41 && modified_level <= 46) {
+					this.add(Enchantment.ARROW_DAMAGE, 4);
+				}
+				else if (modified_level >= 21 && modified_level <= 36) {
+					this.add(Enchantment.ARROW_DAMAGE, 3);
+				}
+				else if (modified_level >= 11 && modified_level <= 26) {
+					this.add(Enchantment.ARROW_DAMAGE, 2);
+				}
+				else if (modified_level >= 1 && modified_level <= 16) {
+					this.add(Enchantment.ARROW_DAMAGE, 1);
 				}
 			}
 			
 			for (int i = 0; i < 2; i++) {
-				if (modified_level >= 12 && modified_level <= 37) {
-					this.add(Enchantment.ARROW_KNOCKBACK, 1);
-				}
-				
 				if (modified_level >= 32 && modified_level <= 57) {
 					this.add(Enchantment.ARROW_KNOCKBACK, 2);
 				}
-	
+				else if (modified_level >= 12 && modified_level <= 37) {
+					this.add(Enchantment.ARROW_KNOCKBACK, 1);
+				}
+				
 				if (modified_level >= 20 && modified_level <= 50) {
 					this.add(Enchantment.ARROW_FIRE, 1);
 				}
@@ -398,24 +367,20 @@ public class Enchantments {
 		case DIAMOND_SPADE:
 			
 			for (int i = 0; i < 10; i++) {
-				if (modified_level >= 1 && modified_level <= 51) {
-					this.add(Enchantment.DIG_SPEED, 1);
-				}
-				
-				if (modified_level >= 16 && modified_level <= 66) {
-					this.add(Enchantment.DIG_SPEED, 2);
-				}
-				
-				if (modified_level >= 31 && modified_level <= 81) {
-					this.add(Enchantment.DIG_SPEED, 3);
-				}
-				
-				if (modified_level >= 46 && modified_level <= 96) {
-					this.add(Enchantment.DIG_SPEED, 4);
-				}
-				
 				if (modified_level >= 61 && modified_level <= 111) {
 					this.add(Enchantment.DIG_SPEED, 5);
+				}
+				else if (modified_level >= 46 && modified_level <= 96) {
+					this.add(Enchantment.DIG_SPEED, 4);
+				}
+				else if (modified_level >= 31 && modified_level <= 81) {
+					this.add(Enchantment.DIG_SPEED, 3);
+				}
+				else if (modified_level >= 16 && modified_level <= 66) {
+					this.add(Enchantment.DIG_SPEED, 2);
+				}
+				else if (modified_level >= 1 && modified_level <= 51) {
+					this.add(Enchantment.DIG_SPEED, 1);
 				}
 			}
 			
@@ -424,30 +389,26 @@ public class Enchantments {
 			}
 			
 			for (int i = 0; i < 5; i++) {
-				if (modified_level >= 5 && modified_level <= 55) {
-					this.add(Enchantment.DURABILITY, 1);
-				}
-				
-				if (modified_level >= 15 && modified_level <= 65) {
-					this.add(Enchantment.DURABILITY, 2);
-				}
-				
 				if (modified_level >= 25 && modified_level <= 75) {
 					this.add(Enchantment.DURABILITY, 3);
+				}
+				else if (modified_level >= 15 && modified_level <= 65) {
+					this.add(Enchantment.DURABILITY, 2);
+				}
+				else if (modified_level >= 5 && modified_level <= 55) {
+					this.add(Enchantment.DURABILITY, 1);
 				}
 			}
 			
 			for (int i = 0; i < 2; i++) {
-				if (modified_level >= 20 && modified_level <= 70) {
-					this.add(Enchantment.LOOT_BONUS_BLOCKS, 1);
-				}
-				
-				if (modified_level >= 32 && modified_level <= 82) {
-					this.add(Enchantment.LOOT_BONUS_BLOCKS, 2);
-				}
-				
 				if (modified_level >= 44 && modified_level <= 94) {
 					this.add(Enchantment.LOOT_BONUS_BLOCKS, 3);
+				}
+				else if (modified_level >= 32 && modified_level <= 82) {
+					this.add(Enchantment.LOOT_BONUS_BLOCKS, 2);
+				}
+				else if (modified_level >= 20 && modified_level <= 70) {
+					this.add(Enchantment.LOOT_BONUS_BLOCKS, 1);
 				}
 			}
 			
