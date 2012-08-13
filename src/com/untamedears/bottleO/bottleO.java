@@ -27,7 +27,7 @@ public class bottleO extends JavaPlugin {
     public static Logger log;
     public EventListener listener;
     public static String pluginName = "bottleO";
-    public static String version = "0.7.1";
+    public static String version = "0.7.4";
     
 	public void onEnable() {
 		log = this.getLogger();

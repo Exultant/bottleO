@@ -13,15 +13,15 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 
 public class Enchantments {
-	
+
 	private List<EnchantmentPair> possibleEnchantments = new ArrayList<EnchantmentPair>();
 	private Map<Enchantment, Integer> enchantments = new HashMap<Enchantment, Integer>();
-	
+
 
 	public Enchantments(int level, Material material) {
-		
+
 		int enchantability;
-		
+
 		switch(material) {
 		case WOOD:
 		case WOOD_AXE:
@@ -36,7 +36,7 @@ public class Enchantments {
 		case LEATHER_LEGGINGS:
 			enchantability = 15;
 			break;
-		
+
 		case STONE:
 		case STONE_AXE:
 		case STONE_HOE:
@@ -45,7 +45,7 @@ public class Enchantments {
 		case STONE_SWORD:
 			enchantability = 5;
 			break;
-			
+
 		case IRON_AXE:
 		case IRON_HOE:
 		case IRON_PICKAXE:
@@ -53,21 +53,21 @@ public class Enchantments {
 		case IRON_SWORD:
 			enchantability = 14;
 			break;
-		
+
 		case IRON_BOOTS:
 		case IRON_CHESTPLATE:
 		case IRON_HELMET:
 		case IRON_LEGGINGS:
 			enchantability = 9;
 			break;
-		
+
 		case CHAINMAIL_BOOTS:
 		case CHAINMAIL_CHESTPLATE:
 		case CHAINMAIL_HELMET:
 		case CHAINMAIL_LEGGINGS:
 			enchantability = 12;
 			break;
-			
+
 		case DIAMOND_AXE:
 		case DIAMOND_HOE:
 		case DIAMOND_PICKAXE:
@@ -79,7 +79,7 @@ public class Enchantments {
 		case DIAMOND_LEGGINGS:
 			enchantability = 10;
 			break;
-		
+
 		case GOLD_AXE:
 		case GOLD_HOE:
 		case GOLD_PICKAXE:
@@ -87,32 +87,32 @@ public class Enchantments {
 		case GOLD_SWORD:
 			enchantability = 22;
 			break;
-		
+
 		case GOLD_BOOTS:
 		case GOLD_CHESTPLATE:
 		case GOLD_HELMET:
 		case GOLD_LEGGINGS:
 			enchantability = 25;
 			break;
-		
+
 		case BOW:
 			enchantability = 1;
-			
+
 		default:
 			// Raise an error?
 			enchantability = 0;
 		}
-		
+
 		Random rnd = new Random();
-		
+
 		int half_enchant = enchantability / 2;
 		int j2 = 1 + rnd.nextInt((half_enchant / 2) + 1) + rnd.nextInt((half_enchant / 2) + 1);
 		int k = j2 + level;
-		
+
 		float f = (rnd.nextFloat() + rnd.nextFloat() - 1) * 0.25f;
 		int modified_level = (int)((float)k * (1.0f + f) + 0.5f);
-		
-		
+
+
 		switch (material) {
 		case LEATHER:
 		case LEATHER_BOOTS:
@@ -136,7 +136,7 @@ public class Enchantments {
 		case GOLD_HELMET:
 		case GOLD_LEGGINGS:
 			for (int i = 0; i < 10; i++) {
-				
+
 				if (modified_level >= 49 && modified_level <= 69) {
 					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
 				}
@@ -150,7 +150,7 @@ public class Enchantments {
 					this.add(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
 				}
 			}
-			
+
 			for (int i = 0; i < 5; i++) {
 				if (modified_level >= 34 && modified_level <= 46) {
 					this.add(Enchantment.PROTECTION_FIRE, 4);
@@ -164,20 +164,7 @@ public class Enchantments {
 				else if (modified_level >= 10 && modified_level <= 22) {
 					this.add(Enchantment.PROTECTION_FIRE, 1);
 				}
-				
-				if (modified_level >= 23 && modified_level <= 33) {
-					this.add(Enchantment.PROTECTION_FALL, 4);
-				}
-				else if (modified_level >= 17 && modified_level <= 27) {
-					this.add(Enchantment.PROTECTION_FALL, 3);
-				}
-				else if (modified_level >= 11 && modified_level <= 21) {
-					this.add(Enchantment.PROTECTION_FALL, 2);
-				}
-				else if (modified_level >= 5 && modified_level <= 15) {
-					this.add(Enchantment.PROTECTION_FALL, 1);
-				}
-				
+
 				if (modified_level >= 21 && modified_level <= 36) {
 					this.add(Enchantment.PROTECTION_PROJECTILE, 4);
 				}
@@ -205,30 +192,16 @@ public class Enchantments {
 				else if (modified_level >= 5 && modified_level <= 17) {
 					this.add(Enchantment.PROTECTION_EXPLOSIONS, 1);
 				}
-				
-				if (modified_level >= 30 && modified_level <= 60) {
-					this.add(Enchantment.OXYGEN, 3);
-				}
-				else if (modified_level >= 20 && modified_level <= 50) {
-					this.add(Enchantment.OXYGEN, 2);
-				}
-				else if (modified_level >= 10 && modified_level <= 40) {
-					this.add(Enchantment.OXYGEN, 1);
-				}
-	
-				if (modified_level >= 1 && modified_level <= 41) {
-					this.add(Enchantment.WATER_WORKER, 1);
-				}
 			}
-			
+
 			break;
-		
+
 		case WOOD_SWORD:
 		case STONE_SWORD:
 		case IRON_SWORD:
 		case DIAMOND_SWORD:
 		case GOLD_SWORD:
-			
+
 			for (int i = 0; i < 10; i++) {
 				if (modified_level >= 65 && modified_level <= 85) {
 					this.add(Enchantment.DAMAGE_ALL, 5);
@@ -263,7 +236,7 @@ public class Enchantments {
 				else if (modified_level >= 5 && modified_level <= 25) {
 					this.add(Enchantment.DAMAGE_UNDEAD, 1);
 				}
-				
+
 				if (modified_level >= 37 && modified_level <= 57) {
 					this.add(Enchantment.DAMAGE_ARTHROPODS, 5);
 				}
@@ -279,7 +252,7 @@ public class Enchantments {
 				else if (modified_level >= 5 && modified_level <= 25) {
 					this.add(Enchantment.DAMAGE_ARTHROPODS, 1);
 				}
-				
+
 				if (modified_level >= 25 && modified_level <= 75) {
 					this.add(Enchantment.KNOCKBACK, 2);
 				}
@@ -295,7 +268,7 @@ public class Enchantments {
 				else if (modified_level >= 10 && modified_level <= 60) {
 					this.add(Enchantment.FIRE_ASPECT, 1);
 				}
-				
+
 				if (modified_level >= 44 && modified_level <= 94) {
 					this.add(Enchantment.LOOT_BONUS_MOBS, 3);
 				}
@@ -307,9 +280,9 @@ public class Enchantments {
 				}
 			}
 			break;
-			
+
 		case BOW:
-			
+
 			for (int i = 0; i < 10; i++) {
 				if (modified_level >= 51 && modified_level <= 56) {
 					this.add(Enchantment.ARROW_DAMAGE, 5);
@@ -327,7 +300,7 @@ public class Enchantments {
 					this.add(Enchantment.ARROW_DAMAGE, 1);
 				}
 			}
-			
+
 			for (int i = 0; i < 2; i++) {
 				if (modified_level >= 32 && modified_level <= 57) {
 					this.add(Enchantment.ARROW_KNOCKBACK, 2);
@@ -335,18 +308,18 @@ public class Enchantments {
 				else if (modified_level >= 12 && modified_level <= 37) {
 					this.add(Enchantment.ARROW_KNOCKBACK, 1);
 				}
-				
+
 				if (modified_level >= 20 && modified_level <= 50) {
 					this.add(Enchantment.ARROW_FIRE, 1);
 				}
 			}
-			
+
 			if (modified_level >= 20 && modified_level <= 50) {
 				this.add(Enchantment.ARROW_INFINITE, 1);
 			}
 
 			break;
-		
+
 		case WOOD:
 		case WOOD_AXE:
 		case WOOD_HOE:
@@ -365,7 +338,7 @@ public class Enchantments {
 		case DIAMOND_HOE:
 		case DIAMOND_PICKAXE:
 		case DIAMOND_SPADE:
-			
+
 			for (int i = 0; i < 10; i++) {
 				if (modified_level >= 61 && modified_level <= 111) {
 					this.add(Enchantment.DIG_SPEED, 5);
@@ -383,11 +356,11 @@ public class Enchantments {
 					this.add(Enchantment.DIG_SPEED, 1);
 				}
 			}
-			
+
 			if (modified_level >= 25 && modified_level <= 75) {
 				this.add(Enchantment.SILK_TOUCH, 1);
 			}
-			
+
 			for (int i = 0; i < 5; i++) {
 				if (modified_level >= 25 && modified_level <= 75) {
 					this.add(Enchantment.DURABILITY, 3);
@@ -399,7 +372,7 @@ public class Enchantments {
 					this.add(Enchantment.DURABILITY, 1);
 				}
 			}
-			
+
 			for (int i = 0; i < 2; i++) {
 				if (modified_level >= 44 && modified_level <= 94) {
 					this.add(Enchantment.LOOT_BONUS_BLOCKS, 3);
@@ -411,18 +384,64 @@ public class Enchantments {
 					this.add(Enchantment.LOOT_BONUS_BLOCKS, 1);
 				}
 			}
-			
+
 			break;
-		
+
 		default:
 			// Raise an error?
+		}
+		
+		//Now apply enchants specifically for boots and helmets
+		switch (material) {
+		case LEATHER_BOOTS:
+		case IRON_BOOTS:
+		case CHAINMAIL_BOOTS:
+		case DIAMOND_BOOTS:
+		case GOLD_BOOTS:
+			for (int i = 0; i < 5; i++) {
+
+				if (modified_level >= 23 && modified_level <= 33) {
+					this.add(Enchantment.PROTECTION_FALL, 4);
+				}
+				else if (modified_level >= 17 && modified_level <= 27) {
+					this.add(Enchantment.PROTECTION_FALL, 3);
+				}
+				else if (modified_level >= 11 && modified_level <= 21) {
+					this.add(Enchantment.PROTECTION_FALL, 2);
+				}
+				else if (modified_level >= 5 && modified_level <= 15) {
+					this.add(Enchantment.PROTECTION_FALL, 1);
+				}
+			}
+			break;
+
+		case LEATHER_HELMET:
+		case IRON_HELMET:
+		case CHAINMAIL_HELMET:
+		case DIAMOND_HELMET:
+		case GOLD_HELMET:
+			for (int i = 0; i < 2; i++) {
+				if (modified_level >= 30 && modified_level <= 60) {
+					this.add(Enchantment.OXYGEN, 3);
+				}
+				else if (modified_level >= 20 && modified_level <= 50) {
+					this.add(Enchantment.OXYGEN, 2);
+				}
+				else if (modified_level >= 10 && modified_level <= 40) {
+					this.add(Enchantment.OXYGEN, 1);
+				}
+
+				if (modified_level >= 1 && modified_level <= 41) {
+					this.add(Enchantment.WATER_WORKER, 1);
+				}
+			}
 		}
 		
 		do {
 			if (this.possibleEnchantments.size() <= 0) {
 				return;
 			}
-			
+
 			int index = rnd.nextInt(this.possibleEnchantments.size());
 			EnchantmentPair pair = this.possibleEnchantments.get(index);
 
@@ -430,26 +449,26 @@ public class Enchantments {
 			this.enchantments.put(pair.enchantment, pair.level);
 
 			for (ListIterator<EnchantmentPair> iter = this.possibleEnchantments.listIterator(this.possibleEnchantments.size()); iter.hasPrevious();) {
-			    EnchantmentPair otherPair = iter.previous();
-				
+				EnchantmentPair otherPair = iter.previous();
+
 				if (otherPair.enchantment.conflictsWith(pair.enchantment)) {
 					//System.out.println("Removing conflicting enchantment '" + otherPair.enchantment.toString() + "', level " + otherPair.level);
 					iter.remove();
 				}
 			}
-			
+
 			modified_level = (int)Math.floor((float)modified_level / 2.0f);
-			
+
 		} while ((float)(modified_level + 1) / 50.0f > rnd.nextFloat());
-			
+
 	}
-	
-	
+
+
 	private void add(Enchantment enchantment, int level) {
 		this.possibleEnchantments.add(new EnchantmentPair(enchantment, level));
 		//System.out.println("Possible enchantment '" + enchantment.toString() + "', level " + level);
 	}
-	
+
 	public int getCount() {
 		return this.enchantments.size();
 	}
@@ -457,14 +476,9 @@ public class Enchantments {
 
 	public void applyEnchantments(Map<Enchantment, Integer> enchantsToAdd) {
 		enchantsToAdd.clear();
-		
-		Iterator<Entry<Enchantment,Integer>> iter = this.enchantments.entrySet().iterator();
-	    while (iter.hasNext()) {
-	        Entry<Enchantment, Integer> pairs = iter.next();
-	        enchantsToAdd.put(pairs.getKey(), pairs.getValue());
-	    }
+		enchantsToAdd.putAll(this.enchantments);
 	}
-	
-	
-	
+
+
+
 }
