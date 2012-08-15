@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -192,6 +193,15 @@ public class EventListener implements Listener {
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void onPrepareItemEnchant(PrepareItemEnchantEvent e) {
 		
+		int level; 
+		
+		if (e.getEnchanter().getGameMode() == GameMode.CREATIVE) {
+			level = 50;
+		}
+		else {
+			level = e.getEnchanter().getLevel();
+		}
+		
 		int[] levels = e.getExpLevelCostsOffered();
 		
 		Random rnd = new Random();
@@ -200,13 +210,12 @@ public class EventListener implements Listener {
 		if (bonus <= 0) {
 			levels[0] = rnd.nextInt(5) / 2;
 			levels[1] = rnd.nextInt(5) * 2 / 3;
-			levels[2] = rnd.nextInt(5);
+			levels[2] = Math.min(4, level);
 		}
 		else {
-			if (bonus < 1) { bonus = 1; }
 			levels[0] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus)) / 2;
 			levels[1] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus)) * 2 / 3;
-			levels[2] = (rnd.nextInt(5) + 2 + (bonus / 2) + rnd.nextInt(bonus));
+			levels[2] = Math.min(5 + (bonus / 2) + bonus, level);
 		}
 		
 		for (int i = 0; i < 3; i++) {
