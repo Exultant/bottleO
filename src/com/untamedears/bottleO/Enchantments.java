@@ -2,13 +2,10 @@ package com.untamedears.bottleO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Random;
-import java.util.Map.Entry;
-
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 
@@ -338,7 +335,11 @@ public class Enchantments {
 		case DIAMOND_HOE:
 		case DIAMOND_PICKAXE:
 		case DIAMOND_SPADE:
-
+		case GOLD_AXE:
+		case GOLD_HOE:
+		case GOLD_PICKAXE:
+		case GOLD_SPADE:
+		
 			for (int i = 0; i < 10; i++) {
 				if (modified_level >= 61 && modified_level <= 111) {
 					this.add(Enchantment.DIG_SPEED, 5);
@@ -435,6 +436,9 @@ public class Enchantments {
 					this.add(Enchantment.WATER_WORKER, 1);
 				}
 			}
+		default:
+			// Raise an error?
+			break;
 		}
 		
 		do {
