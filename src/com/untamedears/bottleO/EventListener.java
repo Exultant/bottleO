@@ -25,6 +25,7 @@ public class EventListener implements Listener {
 	
 	protected static int xpPerBottle = 25;
 	protected static long waitTime = 5000;
+	protected static int maxBookshelves = 30;
 	protected static Random rand;
 	//cool-down timers
 	protected static HashMap<String,Long> playerWaitHash = new HashMap<String,Long>(100);
@@ -205,7 +206,14 @@ public class EventListener implements Listener {
 		int[] levels = e.getExpLevelCostsOffered();
 		
 		Random rnd = new Random();
+		
+		//number of bookshelves around the enchanting table
 		int bonus = e.getEnchantmentBonus();
+		
+		//limit bookshelves to 30
+		if (bonus > maxBookshelves) {
+			bonus = maxBookshelves;
+		}
 		
 		if (bonus <= 0) {
 			levels[0] = rnd.nextInt(5) / 2;
