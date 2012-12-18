@@ -18,7 +18,7 @@ public class bottleO extends JavaPlugin {
 	public void onEnable() {
 		log = this.getLogger();
 		
-		listener = new EventListener();
+		listener = new EventListener(this);
 		Bukkit.getPluginManager().registerEvents(listener, this);
 		
 		//add recipes
