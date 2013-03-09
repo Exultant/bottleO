@@ -191,7 +191,7 @@ public class EventListener implements Listener {
 						}
 					}
 				}
-			} else if (e.getMaterial() == Material.EMERALD || e.getMaterial() == Material.EMERALD_BLOCK) {
+			} else if ((e.getMaterial() == Material.EMERALD || e.getMaterial() == Material.EMERALD_BLOCK) && !e.getPlayer().isSneaking()) {
 				Player p = e.getPlayer();
 				//check player has waited for the required amount of time
 				if (!playerWaitHash.containsKey(p.getName())) {
